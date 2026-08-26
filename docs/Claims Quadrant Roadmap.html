@@ -1,0 +1,733 @@
+<title>Claims Quadrant Roadmap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    color-scheme: light;
+    --bg:            #f2f4f4;
+    --page-edge:      #e7eae9;
+    --surface:        #ffffff;
+    --surface-2:      #eceeec;
+    --ink:            #131b22;
+    --ink-2:          #48545f;
+    --muted:          #8996a1;
+    --border:         rgba(19,27,34,0.12);
+    --border-strong:  rgba(19,27,34,0.22);
+    --accent:         #1f6178;
+    --accent-ink:     #ffffff;
+    --accent-soft:    rgba(31,97,120,0.10);
+    --warm:           #a8672a;
+    --warm-soft:      rgba(168,103,42,0.12);
+    --warm-ink:       #ffffff;
+    --good:           #2f7a4d;
+    --good-soft:      rgba(47,122,77,0.12);
+    --shadow:         0 1px 2px rgba(19,27,34,0.06), 0 8px 24px rgba(19,27,34,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:            #0c1116;
+      --page-edge:      #10161c;
+      --surface:        #161e25;
+      --surface-2:      #1c252d;
+      --ink:            #edf1f4;
+      --ink-2:          #aab6c0;
+      --muted:          #74838f;
+      --border:         rgba(237,241,244,0.12);
+      --border-strong:  rgba(237,241,244,0.22);
+      --accent:         #62b0c9;
+      --accent-ink:     #06141a;
+      --accent-soft:    rgba(98,176,201,0.14);
+      --warm:           #dda05b;
+      --warm-soft:      rgba(221,160,91,0.14);
+      --warm-ink:       #241505;
+      --good:           #6fbf8e;
+      --good-soft:      rgba(111,191,142,0.14);
+      --shadow:         0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:            #0c1116;
+    --page-edge:      #10161c;
+    --surface:        #161e25;
+    --surface-2:      #1c252d;
+    --ink:            #edf1f4;
+    --ink-2:          #aab6c0;
+    --muted:          #74838f;
+    --border:         rgba(237,241,244,0.12);
+    --border-strong:  rgba(237,241,244,0.22);
+    --accent:         #62b0c9;
+    --accent-ink:     #06141a;
+    --accent-soft:    rgba(98,176,201,0.14);
+    --warm:           #dda05b;
+    --warm-soft:      rgba(221,160,91,0.14);
+    --warm-ink:       #241505;
+    --good:           #6fbf8e;
+    --good-soft:      rgba(111,191,142,0.14);
+    --shadow:         0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--page-edge);
+    color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+  ::selection { background: var(--accent-soft); }
+
+  .sheet {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--bg);
+    padding: clamp(28px, 6vw, 64px) clamp(20px, 6vw, 72px) 80px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  a { color: var(--accent); }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  header.hero {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1.title {
+    font-size: clamp(30px, 4.4vw, 42px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    margin: 16px 0 0;
+    max-width: 62ch;
+    font-size: 17px;
+    color: var(--ink-2);
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .companion {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .companion a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 2px; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 28px;
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .stat-num {
+    font-family: "Source Serif 4", serif;
+    font-size: 28px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat-label {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  section.block { margin: 56px 0; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .sec-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  h2.sec-title {
+    font-size: clamp(21px, 2.6vw, 25px);
+  }
+  .sec-dek {
+    margin: 10px 0 26px;
+    max-width: 66ch;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+
+  .quote-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0 8px;
+  }
+  @media (max-width: 640px) { .quote-row { grid-template-columns: 1fr; } }
+  blockquote.feedback {
+    margin: 0;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warm);
+    border-radius: 4px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  blockquote.feedback cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  .callout {
+    margin: 22px 0 8px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--warm-soft);
+    border-left: 3px solid var(--warm);
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .callout strong { color: var(--ink); }
+
+  .cat-block { margin: 30px 0; }
+  .cat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  h3.cat-title {
+    font-size: 17px;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 700;
+  }
+  .cat-count {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: var(--surface-2);
+    border-radius: 20px;
+    padding: 2px 9px;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table.tax {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 13.5px;
+    min-width: 640px;
+  }
+  table.tax th {
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-strong);
+    background: var(--surface-2);
+  }
+  table.tax td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-2);
+  }
+  table.tax tr:last-child td { border-bottom: none; }
+  table.tax td.model-name { color: var(--ink); font-weight: 600; }
+  table.tax td.why { font-size: 13px; }
+
+  sup.flag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    margin-left: 2px;
+    cursor: help;
+  }
+  sup.flag.v { color: var(--good); }
+  sup.flag.g { color: var(--accent); }
+
+  .legend {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 14px 2px 0;
+  }
+  .legend span.flag { font-family: "IBM Plex Mono", monospace; font-size: 10px; margin-right: 4px; }
+  .legend .v { color: var(--good); }
+  .legend .g { color: var(--accent); }
+
+  .excluded-note {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .excluded-note strong { color: var(--ink); }
+
+  .milestones { position: relative; margin-top: 8px; }
+  .milestone {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    position: relative;
+  }
+  .milestone + .milestone { margin-top: 4px; }
+  .m-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .m-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .milestone.critical .m-dot { border-color: var(--warm); color: var(--warm); }
+  .milestone.foundation .m-dot { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .m-line {
+    width: 1.5px;
+    flex: 1;
+    background: var(--border-strong);
+    margin-top: 2px;
+    min-height: 26px;
+  }
+  .milestone:last-child .m-line { display: none; }
+  .m-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px 18px;
+    margin-bottom: 22px;
+  }
+  .m-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .m-title { font-size: 16.5px; font-weight: 700; font-family: "Public Sans", sans-serif; color: var(--ink); }
+  .m-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .m-tag.critical { background: var(--warm-soft); color: var(--warm); }
+  .m-tag.optional { background: var(--surface-2); color: var(--muted); }
+  .m-tag.foundation { background: var(--accent-soft); color: var(--accent); }
+  .m-tag.conditional { background: var(--surface-2); color: var(--muted); border: 1px dashed var(--border-strong); }
+  .m-models {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .m-dep {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .m-dep .mono { color: var(--ink-2); }
+
+  .stages { counter-reset: stage; margin-top: 8px; }
+  .stage {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stage:last-child { border-bottom: none; }
+  .stage-num {
+    counter-increment: stage;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .stage-num::before { content: counter(stage); }
+  .stage-title {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .stage-body { margin-top: 5px; font-size: 13.5px; color: var(--ink-2); }
+  .gap-pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--warm-soft);
+    color: var(--warm);
+    text-transform: uppercase;
+  }
+
+  .gap-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+  @media (max-width: 640px) { .gap-cards { grid-template-columns: 1fr; } }
+  .gap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .gap-card h4 {
+    margin: 0 0 4px;
+    font-family: "Public Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .gap-card .co { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .gap-card blockquote {
+    margin: 0 0 14px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-strong);
+    font-size: 13px;
+    color: var(--ink-2);
+    font-style: italic;
+  }
+  .gap-card .closes { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+  .gap-card ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+  .gap-card li { margin-bottom: 4px; }
+  .gap-card li strong { color: var(--ink); }
+
+  .risks { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 8px; }
+  .risk {
+    background: var(--surface);
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .risk-head { font-weight: 700; font-size: 13.5px; color: var(--ink); }
+  .risk-body { font-size: 13.5px; color: var(--ink-2); }
+  .risk-body .fix { color: var(--ink); }
+  .risk-body .fix::before { content: "→ "; color: var(--accent); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--muted); }
+</style>
+
+<div class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">Portfolio build plan — Claims quadrant</p>
+    <h1 class="title">Claims Quadrant Roadmap</h1>
+    <p class="lede">The companion catalogue to the underwriting roadmap: every predictive model that plausibly belongs in a commercial insurer's claims quadrant — triage, cost, timing, fraud, recovery, and operations forecasting — phased into milestones that run the same actuarial-plus-GLM/GBM, MLflow-tracked, served-and-monitored lifecycle.</p>
+    <p class="companion">Volume 2 of 2 — see also the <a href="https://claude.ai/code/artifact/3129b04e-2615-4b21-b837-ee5b3964fbaa">Underwriting Quadrant Roadmap</a> for pricing and portfolio-optimisation.</p>
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="stat-num">9</div>
+        <div class="stat-label">models catalogued, 5 categories</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">8</div>
+        <div class="stat-label">milestones — 5 critical path</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">2</div>
+        <div class="stat-label">named interview gaps this targets</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="why">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">Why this exists</h2></div>
+    <p class="sec-dek">The same two gaps the underwriting roadmap answers, answered again from the claims side — because a lead-level candidate in the underwriting quadrant is still expected to understand how claims experience feeds back into pricing.</p>
+    <div class="quote-row">
+      <blockquote class="feedback">
+        "Modelling and deployment depth needed more demonstration — end-to-end serving and monitoring named as the gap."
+        <cite>Hastings Direct · Senior Data Scientist · Jan 2026</cite>
+      </blockquote>
+      <blockquote class="feedback">
+        "Communication, AWS/pipeline and deployment work praised. Rejected specifically on data science/statistics depth."
+        <cite>Pacific Life Re · final stage, 4 rounds · Jul 2026</cite>
+      </blockquote>
+    </div>
+    <div class="callout"><strong>Worth naming up front:</strong> the underwriting roadmap's dataset was scoped for pricing (policy, frequency, severity fields). Claims-quadrant models generally need richer per-claim lifecycle data — open/close dates, status history, litigation flags, SIU outcomes, adjuster notes, recovery records — that a motor pricing dataset frequently does not carry. Milestones below are marked by how exposed they are to this: see Section&nbsp;05.</div>
+  </section>
+
+  <section class="block" id="taxonomy">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">The full universe</h2></div>
+    <p class="sec-dek">Five categories of claims-quadrant predictive model. Each pairs a classical statistical technique with a modern GLM/GBM counterpart, and earns its place with a one-line reason it's claims work, not pricing or underwriting selection.</p>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Triage &amp; complexity routing</h3><span class="cat-count">1 model</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method</th><th>Modern GLM/GBM</th><th>Why claims</th></tr>
+        <tr><td class="model-name">FNOL complexity/routing model</td><td>Ordinal / multinomial logistic regression on first-notice features<sup class="flag g" title="General statistics literature, not from Loss Data Analytics">G</sup></td><td>GBM multiclass classifier, calibrated probabilities per tier</td><td class="why">Deciding which adjuster tier a claim needs, at first notice, with incomplete information — the earliest claims-ops decision, distinct from pricing or risk selection.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Cost / reserve models</h3><span class="cat-count">1 model</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method</th><th>Modern GLM/GBM</th><th>Why claims</th></tr>
+        <tr><td class="model-name">Case-level reserve adequacy / ultimate cost</td><td>Gamma / lognormal severity GLM, applied at open-claim level with time-varying case features<sup class="flag v" title="Verified: Loss Severity chapter, applied here to an individual open claim rather than at pricing time">V</sup></td><td>GBM regression on claim + adjuster + injury/repair features, retrained as the claim develops</td><td class="why">Estimating what an <em>open</em> claim will ultimately cost, and flagging under-reserved files, is claims-operations work — distinct from the aggregate chain-ladder reserving in the underwriting roadmap.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Lifecycle timing</h3><span class="cat-count">2 models</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method</th><th>Modern GLM/GBM</th><th>Why claims</th></tr>
+        <tr><td class="model-name">Duration / time-to-closure</td><td>Cox proportional hazards, Kaplan–Meier<sup class="flag g" title="General survival-analysis literature, not from Loss Data Analytics">G</sup></td><td>Gradient-boosted survival model, or GBM classifier on duration buckets</td><td class="why">How long a claim stays open drives loss-adjustment expense and claimant experience — a claims-operations metric, not a pricing one.</td></tr>
+        <tr><td class="model-name">Litigation propensity</td><td>Competing-risks survival analysis — litigation as a competing risk to standard closure<sup class="flag g" title="General survival-analysis literature; this is the same technique family raised in the Pacific Life Re interview process">G</sup></td><td>GBM binary classifier flagging litigation risk early in the lifecycle</td><td class="why">Early litigation flagging changes handling strategy and cost trajectory — and directly echoes the survival/competing-risks framing from the Pacific Life Re process.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Fraud &amp; recovery</h3><span class="cat-count">2 models</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method</th><th>Modern GLM/GBM</th><th>Why claims</th></tr>
+        <tr><td class="model-name">Fraud / SIU referral</td><td>Rule-based red-flag scorecard (logistic GLM on curated indicators) + unsupervised anomaly scoring (Benford's law, Mahalanobis distance)<sup class="flag g" title="General fraud-analytics literature, not from Loss Data Analytics">G</sup></td><td>GBM classifier on confirmed SIU outcomes, engineered anomaly-score and (optionally) linked-entity features</td><td class="why">Deciding which claims warrant special-investigation referral is a claims-handling decision made after a policy is already in force.</td></tr>
+        <tr><td class="model-name">Subrogation / recovery potential</td><td>Logistic regression on liability determination + historical recovery-rate priors<sup class="flag g" title="General claims-analytics literature, not from Loss Data Analytics">G</sup></td><td>Two-part GBM: probability of recovery × expected recovery amount, mirroring a frequency-severity split</td><td class="why">Recovering cost from a liable third party is a post-loss claims function with its own dedicated economics.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Operations forecasting</h3><span class="cat-count">1 model · capstone</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method</th><th>Modern GLM/GBM</th><th>Why claims</th></tr>
+        <tr><td class="model-name">Claims volume / surge forecasting</td><td>Poisson-process aggregate frequency forecasting<sup class="flag v" title="Verified: Aggregate Loss Models chapter, applied here temporally for volume rather than for a single accident-year total">V</sup></td><td>Time-series GBM with lag/rolling/weather-event features, or Prophet-style decomposition</td><td class="why">Forecasting inbound claim volume — including catastrophe surge — drives adjuster staffing and capacity planning, a claims-operations decision distinct from portfolio pricing.</td></tr>
+      </table></div>
+    </div>
+
+    <p class="legend"><span class="flag v">V</span> classical technique reused from a verified Loss Data Analytics chapter, re-applied to a claims-stage question &nbsp;&nbsp; <span class="flag g">G</span> established technique from general statistics/fraud-analytics literature, outside Loss Data Analytics' scope — cited generally, not to a specific chapter</p>
+
+    <div class="excluded-note"><strong>Deliberately excluded:</strong> risk selection, technical pricing, and portfolio-level rate adequacy — those are the underwriting roadmap's territory. Also excluded: claims-notes NLP/text-mining as a standalone milestone; it shows up only as an optional feature source inside fraud and triage models here, not as its own lifecycle, to keep the catalogue to models with a clean single target variable.</div>
+  </section>
+
+  <section class="block" id="milestones">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Milestone sequence</h2></div>
+    <p class="sec-dek">Ordered on dependency, same rule as the underwriting roadmap: each milestone needs an earlier one's output, never a later one. Milestone 0 can extend the existing Unity Catalog/MLflow scaffolding rather than rebuilding it.</p>
+
+    <div class="milestones">
+      <div class="milestone foundation">
+        <div class="m-rail"><div class="m-dot">0</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Claims-lifecycle silver layer</span><span class="m-tag foundation">Foundation — once</span></div>
+          <div class="m-models">Audit the existing silver layer for claims-lifecycle fields (status history, close dates, litigation/SIU/subrogation flags). Extend the silver transformation to add whatever is present; explicitly document what's missing rather than inventing it.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">1</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Case-level cost / reserve adequacy <span class="mono" style="font-size:12px;color:var(--muted);font-weight:400;">(flagship)</span></span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Case-level reserve adequacy / ultimate cost model</div>
+          <div class="m-dep">Needs only <span class="mono">M0</span>, and only fields already used for the underwriting severity model — the lowest-data-risk milestone in this catalogue, so it goes first.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">2</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">FNOL triage &amp; routing</span><span class="m-tag optional">If time allows</span></div>
+          <div class="m-models">FNOL complexity/routing model</div>
+          <div class="m-dep">Needs <span class="mono">M1</span>'s cost model adapted to early/incomplete-information features available at first notice.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">3</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Duration / time-to-closure</span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Duration / time-to-closure model</div>
+          <div class="m-dep">Needs <span class="mono">M0</span>'s status/close-date fields. The statistical-depth anchor of this roadmap — survival analysis, not GLM/GBM alone.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">4</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Litigation propensity</span><span class="m-tag optional">If time allows</span></div>
+          <div class="m-models">Litigation propensity model</div>
+          <div class="m-dep">Extends <span class="mono">M3</span>'s survival model to a competing-risks framing — needs a litigation flag in the silver layer, the single most likely field to be missing (see Section 05).</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">5</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Fraud / SIU referral</span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Fraud / SIU referral model</div>
+          <div class="m-dep">Uses <span class="mono">M1</span>'s cost-model residuals (unusually high claimed severity vs. predicted) as a fraud signal — a genuine dependency, not just convenience.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">6</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Subrogation / recovery potential</span><span class="m-tag optional">If time allows</span></div>
+          <div class="m-models">Subrogation / recovery potential model</div>
+          <div class="m-dep">Needs liability-determination and historical recovery fields — audit for these in <span class="mono">M0</span> before committing to this milestone.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">7</div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Claims volume / surge forecasting <span class="mono" style="font-size:12px;color:var(--muted);font-weight:400;">(capstone)</span></span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Claims volume / surge forecasting model</div>
+          <div class="m-dep">Portfolio-level, needs only claim-count-by-period from <span class="mono">M0</span> — independent of the individual-claim chain above. The claims-ops mirror of the underwriting roadmap's portfolio-optimisation capstone.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="lifecycle">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">The lifecycle every milestone repeats</h2></div>
+    <p class="sec-dek">Identical to the underwriting roadmap's template — repeated here so this document stands alone. Stages 5 and 6 are where the Hastings Direct gap gets closed, every time.</p>
+
+    <div class="stages">
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Statistical baseline</div><div class="stage-body">Fit the classical technique for this milestone in a Databricks notebook against the silver layer. Test assumptions explicitly — e.g. proportional-hazards checks for a Cox model, or AIC/QQ diagnostics for a severity GLM.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">GLM/GBM challenger</div><div class="stage-body">Same target and features, gradient boosting or a regularised GLM. Where the classical method is a survival model, compare against a gradient-boosted survival model or a calibrated GBM classifier on duration/event buckets — not a naive regression that ignores censoring.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">MLflow tracking</div><div class="stage-body">Log distribution/model family and hyperparameters as params. Log concordance index (survival models), precision-recall/PR-AUC under class imbalance (fraud, litigation), deviance or calibration-by-decile (cost models) as metrics — never accuracy alone on an imbalanced target. Log calibration plots, Kaplan–Meier curves, and confusion matrices as artifacts.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Registration</div><div class="stage-body">Register champion and challenger under the same <span class="mono">catalog.schema.model_name</span> convention established in the underwriting roadmap's M0, with alias-based promotion (<span class="mono">@champion</span> / <span class="mono">@challenger</span>).</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Deploy as an endpoint <span class="gap-pill">closes Hastings Direct</span></div><div class="stage-body">Deploy the champion as a Databricks Model Serving CPU real-time endpoint, same Free Edition caveat and batch-scoring fallback as the underwriting roadmap — already tested there in M1, so this repeats a known pattern rather than re-discovering the risk.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Monitor <span class="gap-pill">closes Hastings Direct</span></div><div class="stage-body">A scheduled job scores a fresh slice weekly and tracks drift against the training-time baseline. For imbalanced targets (fraud, litigation) also track the positive-rate over time — a silent shift there is a common real-world failure mode worth naming in interviews.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Handwritten debrief</div><div class="stage-body">Answer by hand: why this technique over the alternative (e.g. why competing-risks over a plain binary litigation flag) and what diagnostic backs it; where the GBM beat the classical baseline and where interpretability mattered more to a claims stakeholder; what the class-imbalance or censoring handling taught about evaluation metrics; what the next refinement would be with two more weeks.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gaps">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">What this closes</h2></div>
+    <p class="sec-dek">Both interviewer quotes, mapped to the specific milestones that answer them from the claims side.</p>
+    <div class="gap-cards">
+      <div class="gap-card">
+        <h4>Deployment &amp; monitoring depth</h4>
+        <div class="co">Hastings Direct · Jan 2026</div>
+        <blockquote>"Modelling and deployment depth needed more demonstration, end-to-end serving and monitoring named as the gap."</blockquote>
+        <div class="closes">Closed by</div>
+        <ul>
+          <li><strong>Every milestone, stages 5–6</strong> — same serving-and-monitoring discipline as the underwriting roadmap, applied to a second, structurally different family of models.</li>
+          <li><strong>M5</strong> — monitoring a fraud model for positive-rate drift is a materially different (and more advanced) monitoring story than a regression model's feature drift.</li>
+        </ul>
+      </div>
+      <div class="gap-card">
+        <h4>Statistics depth</h4>
+        <div class="co">Pacific Life Re · final stage, Jul 2026</div>
+        <blockquote>"Communication, AWS/pipeline and deployment work praised. Rejected specifically on data science/statistics depth."</blockquote>
+        <div class="closes">Closed by</div>
+        <ul>
+          <li><strong>M3</strong> — Cox proportional hazards / Kaplan–Meier survival analysis, directly echoing the technique family raised in the Pacific Life Re process itself.</li>
+          <li><strong>M4</strong> — competing-risks survival analysis, a genuinely advanced extension most generalist DS candidates never touch.</li>
+          <li><strong>M5</strong> — fraud detection under severe class imbalance, forcing a real conversation about precision-recall trade-offs rather than accuracy.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="risks">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Risks worth naming</h2></div>
+    <p class="sec-dek">The claims quadrant leans harder on data availability than the underwriting one did — named plainly rather than assumed away.</p>
+    <div class="risks">
+      <div class="risk"><div class="risk-head">Claims-lifecycle fields may not exist in the current dataset</div><div class="risk-body">Litigation flags, SIU outcomes, subrogation records, and multi-snapshot status history are the fields most public/pricing-oriented motor datasets omit. <span class="fix">Audit schema in M0 first; M4 (litigation) and M6 (subrogation) are the two milestones most likely to need a supplementary or clearly-labelled synthetic dataset.</span></div></div>
+      <div class="risk"><div class="risk-head">Censoring in duration/litigation models is easy to get wrong</div><div class="risk-body">Claims still open at data-extract time are censored observations, not "long-duration" ones — treating them as complete durations biases the model. <span class="fix">Use proper survival-analysis censoring handling in M3/M4, and make this distinction part of the handwritten debrief.</span></div></div>
+      <div class="risk"><div class="risk-head">Fraud and litigation targets are severely imbalanced</div><div class="risk-body">Confirmed fraud/SIU referrals and litigated claims are typically a small single-digit percentage of a book. <span class="fix">Track PR-AUC and calibration, not accuracy; consider class-weighting or resampling and say explicitly which was chosen and why.</span></div></div>
+      <div class="risk"><div class="risk-head">Same Free Edition serving/monitoring risk as the underwriting roadmap</div><div class="risk-body">Already tested and worked around in that roadmap's M1. <span class="fix">Reuse the same batch-scoring fallback pattern here rather than re-litigating it.</span></div></div>
+      <div class="risk"><div class="risk-head">Fraud/SIU model needs care around fairness and defensibility</div><div class="risk-body">A referral model that scores real people needs a defensible, explainable feature set — not just raw predictive power. <span class="fix">Favour GLM/scorecard interpretability alongside the GBM challenger in M5, and treat explainability as an evaluation criterion, not an afterthought.</span></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Companion to the Underwriting Quadrant Roadmap. Loss Data Analytics chapters reused where genuinely applicable; survival-analysis and fraud-analytics techniques cited to general literature, not to that text. Written 26 Aug 2026.</span>
+  </footer>
+
+</div>

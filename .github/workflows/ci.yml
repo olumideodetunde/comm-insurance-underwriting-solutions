@@ -1,0 +1,50 @@
+name: databricks-ci-cd
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: project
+
+jobs:
+  check:
+    name: Lint, test, validate bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python deps
+        run: pip install ruff pytest
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest
+
+      - uses: databricks/setup-cli@main
+
+      - name: Validate bundle
+        run: databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+  deploy:
+    name: Deploy to Databricks
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: databricks/setup-cli@main
+
+      - name: Deploy bundle
+        run: databricks bundle deploy -t dev
+        env:
+          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}

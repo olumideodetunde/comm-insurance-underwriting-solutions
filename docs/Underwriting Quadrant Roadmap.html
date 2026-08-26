@@ -1,0 +1,738 @@
+<title>Underwriting Quadrant Roadmap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    color-scheme: light;
+    --bg:            #f2f4f4;
+    --page-edge:      #e7eae9;
+    --surface:        #ffffff;
+    --surface-2:      #eceeec;
+    --ink:            #131b22;
+    --ink-2:          #48545f;
+    --muted:          #8996a1;
+    --border:         rgba(19,27,34,0.12);
+    --border-strong:  rgba(19,27,34,0.22);
+    --accent:         #1f6178;
+    --accent-ink:     #ffffff;
+    --accent-soft:    rgba(31,97,120,0.10);
+    --warm:           #a8672a;
+    --warm-soft:      rgba(168,103,42,0.12);
+    --warm-ink:       #ffffff;
+    --good:           #2f7a4d;
+    --good-soft:      rgba(47,122,77,0.12);
+    --shadow:         0 1px 2px rgba(19,27,34,0.06), 0 8px 24px rgba(19,27,34,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:            #0c1116;
+      --page-edge:      #10161c;
+      --surface:        #161e25;
+      --surface-2:      #1c252d;
+      --ink:            #edf1f4;
+      --ink-2:          #aab6c0;
+      --muted:          #74838f;
+      --border:         rgba(237,241,244,0.12);
+      --border-strong:  rgba(237,241,244,0.22);
+      --accent:         #62b0c9;
+      --accent-ink:     #06141a;
+      --accent-soft:    rgba(98,176,201,0.14);
+      --warm:           #dda05b;
+      --warm-soft:      rgba(221,160,91,0.14);
+      --warm-ink:       #241505;
+      --good:           #6fbf8e;
+      --good-soft:      rgba(111,191,142,0.14);
+      --shadow:         0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:            #0c1116;
+    --page-edge:      #10161c;
+    --surface:        #161e25;
+    --surface-2:      #1c252d;
+    --ink:            #edf1f4;
+    --ink-2:          #aab6c0;
+    --muted:          #74838f;
+    --border:         rgba(237,241,244,0.12);
+    --border-strong:  rgba(237,241,244,0.22);
+    --accent:         #62b0c9;
+    --accent-ink:     #06141a;
+    --accent-soft:    rgba(98,176,201,0.14);
+    --warm:           #dda05b;
+    --warm-soft:      rgba(221,160,91,0.14);
+    --warm-ink:       #241505;
+    --good:           #6fbf8e;
+    --good-soft:      rgba(111,191,142,0.14);
+    --shadow:         0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--page-edge);
+    color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+  ::selection { background: var(--accent-soft); }
+
+  .sheet {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--bg);
+    padding: clamp(28px, 6vw, 64px) clamp(20px, 6vw, 72px) 80px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  a { color: var(--accent); }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1.title {
+    font-size: clamp(30px, 4.4vw, 42px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    margin: 16px 0 0;
+    max-width: 62ch;
+    font-size: 17px;
+    color: var(--ink-2);
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .companion {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .companion a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 2px; }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 28px;
+  }
+  .stat-cell {
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .stat-num {
+    font-family: "Source Serif 4", serif;
+    font-size: 28px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .stat-label {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section.block { margin: 56px 0; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .sec-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  h2.sec-title {
+    font-size: clamp(21px, 2.6vw, 25px);
+  }
+  .sec-dek {
+    margin: 10px 0 26px;
+    max-width: 66ch;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+
+  /* ---------- Pull quotes (feedback) ---------- */
+  .quote-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0 8px;
+  }
+  @media (max-width: 640px) { .quote-row { grid-template-columns: 1fr; } }
+  blockquote.feedback {
+    margin: 0;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--warm);
+    border-radius: 4px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  blockquote.feedback cite {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- Taxonomy tables ---------- */
+  .cat-block { margin: 30px 0; }
+  .cat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  h3.cat-title {
+    font-size: 17px;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 700;
+  }
+  .cat-count {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: var(--surface-2);
+    border-radius: 20px;
+    padding: 2px 9px;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table.tax {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 13.5px;
+    min-width: 640px;
+  }
+  table.tax th {
+    text-align: left;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-strong);
+    background: var(--surface-2);
+  }
+  table.tax td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-2);
+  }
+  table.tax tr:last-child td { border-bottom: none; }
+  table.tax td.model-name { color: var(--ink); font-weight: 600; }
+  table.tax td.why { font-size: 13px; }
+
+  sup.flag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 9.5px;
+    margin-left: 2px;
+    cursor: help;
+  }
+  sup.flag.v { color: var(--good); }
+  sup.flag.i { color: var(--warm); }
+
+  .legend {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 14px 2px 0;
+  }
+  .legend span.flag { font-family: "IBM Plex Mono", monospace; font-size: 10px; margin-right: 4px; }
+  .legend .v { color: var(--good); }
+  .legend .i { color: var(--warm); }
+
+  .excluded-note {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .excluded-note strong { color: var(--ink); }
+
+  /* ---------- Milestone sequence ---------- */
+  .milestones { position: relative; margin-top: 8px; }
+  .milestone {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    position: relative;
+  }
+  .milestone + .milestone { margin-top: 4px; }
+  .m-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .m-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .milestone.critical .m-dot { border-color: var(--warm); color: var(--warm); }
+  .milestone.foundation .m-dot { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .m-line {
+    width: 1.5px;
+    flex: 1;
+    background: var(--border-strong);
+    margin-top: 2px;
+    min-height: 26px;
+  }
+  .milestone:last-child .m-line { display: none; }
+  .m-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px 18px;
+    margin-bottom: 22px;
+  }
+  .m-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .m-title { font-size: 16.5px; font-weight: 700; font-family: "Public Sans", sans-serif; color: var(--ink); }
+  .m-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .m-tag.critical { background: var(--warm-soft); color: var(--warm); }
+  .m-tag.optional { background: var(--surface-2); color: var(--muted); }
+  .m-tag.foundation { background: var(--accent-soft); color: var(--accent); }
+  .m-tag.conditional { background: var(--surface-2); color: var(--muted); border: 1px dashed var(--border-strong); }
+  .m-models {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .m-dep {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .m-dep .mono { color: var(--ink-2); }
+
+  /* ---------- Lifecycle stages ---------- */
+  .stages { counter-reset: stage; margin-top: 8px; }
+  .stage {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stage:last-child { border-bottom: none; }
+  .stage-num {
+    counter-increment: stage;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: 2px;
+  }
+  .stage-num::before { content: counter(stage); }
+  .stage-title {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .stage-body { margin-top: 5px; font-size: 13.5px; color: var(--ink-2); }
+  .gap-pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--warm-soft);
+    color: var(--warm);
+    text-transform: uppercase;
+  }
+
+  /* ---------- Gap mapping ---------- */
+  .gap-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+  @media (max-width: 640px) { .gap-cards { grid-template-columns: 1fr; } }
+  .gap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .gap-card h4 {
+    margin: 0 0 4px;
+    font-family: "Public Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .gap-card .co { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .gap-card blockquote {
+    margin: 0 0 14px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border-strong);
+    font-size: 13px;
+    color: var(--ink-2);
+    font-style: italic;
+  }
+  .gap-card .closes { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+  .gap-card ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+  .gap-card li { margin-bottom: 4px; }
+  .gap-card li strong { color: var(--ink); }
+
+  /* ---------- Risks ---------- */
+  .risks { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 8px; }
+  .risk {
+    background: var(--surface);
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .risk-head { font-weight: 700; font-size: 13.5px; color: var(--ink); }
+  .risk-body { font-size: 13.5px; color: var(--ink-2); }
+  .risk-body .fix { color: var(--ink); }
+  .risk-body .fix::before { content: "→ "; color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 60px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  footer a { color: var(--muted); }
+</style>
+
+<div class="sheet">
+
+  <header class="hero">
+    <p class="eyebrow">Portfolio build plan — Pricing &amp; Portfolio-optimisation pillars</p>
+    <h1 class="title">Underwriting Quadrant Roadmap</h1>
+    <p class="lede">Every predictive model that plausibly belongs in a commercial insurer's underwriting quadrant, catalogued once and phased into eight milestones. Each milestone runs the same lifecycle — classical actuarial method beside a modern GLM/GBM, tracked and served on Databricks, closed out with a handwritten debrief built for interview use.</p>
+    <p class="companion">Volume 1 of 2 — see also the <a href="https://claude.ai/code/artifact/8d5b16b6-6ca8-459c-924c-4ed9798c0fd1">Claims Quadrant Roadmap</a> for triage, cost, timing, fraud, and recovery.</p>
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="stat-num">13</div>
+        <div class="stat-label">models catalogued, 5 categories</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">8</div>
+        <div class="stat-label">milestones — 5 critical path</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">2</div>
+        <div class="stat-label">named interview gaps this targets</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="block" id="why">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">Why this exists</h2></div>
+    <p class="sec-dek">Two real interviews named the same two things missing. This roadmap exists to close both, on purpose, in the open.</p>
+    <div class="quote-row">
+      <blockquote class="feedback">
+        "Modelling and deployment depth needed more demonstration — end-to-end serving and monitoring named as the gap."
+        <cite>Hastings Direct · Senior Data Scientist · Jan 2026</cite>
+      </blockquote>
+      <blockquote class="feedback">
+        "Communication, AWS/pipeline and deployment work praised. Rejected specifically on data science/statistics depth."
+        <cite>Pacific Life Re · final stage, 4 rounds · Jul 2026</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="block" id="taxonomy">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">The full universe</h2></div>
+    <p class="sec-dek">Five categories of underwriting-quadrant predictive model. Each pairs a classical actuarial technique with a modern GLM/GBM counterpart, and earns its place with a one-line reason it's underwriting work, not claims handling or fraud.</p>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Pricing / loss cost</h3><span class="cat-count">4 models</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method (Loss Data Analytics)</th><th>Modern GLM/GBM</th><th>Why underwriting</th></tr>
+        <tr><td class="model-name">Frequency model</td><td>Poisson / negative binomial GLM<sup class="flag v" title="Verified: Frequency Modeling chapter">V</sup></td><td>GBM, Poisson/count objective</td><td class="why">Claim count per exposure unit is the first building block of technical pricing and risk selection at quote stage.</td></tr>
+        <tr><td class="model-name">Severity model</td><td>Gamma / lognormal GLM, Pareto tail<sup class="flag v" title="Verified: Loss Severity chapter">V</sup></td><td>GBM, gamma objective or quantile regression</td><td class="why">Given a claim occurs, sizing its expected cost drives technical premium and risk appetite.</td></tr>
+        <tr><td class="model-name">Pure premium / loss cost</td><td>Frequency×severity vs. Tweedie compound method<sup class="flag v" title="Verified: named in Aggregate Loss Models / ratemaking content">V</sup></td><td>Tweedie-objective GBM, or two-stage freq×sev GBM</td><td class="why">This <em>is</em> the technical price — the central underwriting-quadrant deliverable, and Olu's own worked example.</td></tr>
+        <tr><td class="model-name">Large-loss / tail severity</td><td>Extreme value theory — generalized Pareto over threshold<sup class="flag v" title="Verified: tail-handling content within the Loss Severity chapter">V</sup></td><td>Quantile GBM / body-tail hurdle GBM</td><td class="why">Commercial P&amp;C underwriting is disproportionately about tail exposure — drives appetite and reinsurance attachment.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Portfolio / aggregate risk</h3><span class="cat-count">4 models</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method (Loss Data Analytics)</th><th>Modern GLM/GBM</th><th>Why underwriting</th></tr>
+        <tr><td class="model-name">Aggregate loss model</td><td>Compound Poisson, Panjer recursion<sup class="flag v" title="Verified: Aggregate Loss Models chapter">V</sup></td><td>Monte Carlo over fitted freq/sev, or quantile GBM on aggregate loss</td><td class="why">Underwriters need the full distribution of total book losses, not just the mean, to set capital and appetite — Olu's own "aggregation model" example.</td></tr>
+        <tr><td class="model-name">Portfolio concentration</td><td>Dependence modelling / copulas<sup class="flag i" title="Inferred: typical multivariate/dependence content, title not verified">I</sup></td><td>GBM-based correlation / cluster structure</td><td class="why">Avoiding correlated risk concentration (fleet exposure, geographic clustering) is a defining portfolio-steering task.</td></tr>
+        <tr><td class="model-name">Portfolio optimisation</td><td>Constrained optimisation over loss cost + volatility, built on the aggregate model's output<sup class="flag i" title="Applied extension, not a single LDA chapter">I</sup></td><td>GBM risk scores feeding LP/QP or an accept/reject policy layer</td><td class="why">Which risks to write, at what price, to maximise risk-adjusted portfolio return — Olu's Pillar-3 gap, the capstone.</td></tr>
+        <tr><td class="model-name">Rate adequacy / trend</td><td>Loss ratio vs. pure premium method, trended<sup class="flag i" title="Inferred: typical ratemaking-mechanics content">I</sup></td><td>Time-series GLM/GBM with trend factors</td><td class="why">Monitoring rate adequacy against emerging experience is a portfolio-management underwriting task.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Reserving</h3><span class="cat-count">2 models · conditional</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method (Loss Data Analytics)</th><th>Modern GLM/GBM</th><th>Why underwriting</th></tr>
+        <tr><td class="model-name">Claims reserving</td><td>Chain-ladder, Bornhuetter-Ferguson<sup class="flag v" title="Verified: Loss Reserving chapter">V</sup></td><td>GBM / individual-claim development models</td><td class="why">Reserve estimates feed back into loss-cost assumptions used in pricing — the actuarial loop into underwriting.</td></tr>
+        <tr><td class="model-name">Stochastic reserving</td><td>Mack's model, bootstrap chain-ladder<sup class="flag v" title="Verified: stochastic extension of the Loss Reserving chapter">V</sup></td><td>Quantile-regression GBM for reserve ranges</td><td class="why">Reserve <em>uncertainty</em> feeds capital and portfolio risk assessment, same rationale as claims reserving above.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Experience rating / credibility</h3><span class="cat-count">2 models</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method (Loss Data Analytics)</th><th>Modern GLM/GBM</th><th>Why underwriting</th></tr>
+        <tr><td class="model-name">Bühlmann–Straub credibility</td><td>Credibility theory<sup class="flag v" title="Verified: Experience Rating Using Credibility Theory chapter">V</sup></td><td>Hierarchical GLMM / mixed-effects shrinkage — plain GBM has no natural analogue, see risks</td><td class="why">Blending individual-account experience with class-wide loss cost for renewal pricing — a defining commercial (not personal-lines) task.</td></tr>
+        <tr><td class="model-name">Bonus-malus adjustment</td><td>Credibility-based bonus-malus, motor-specific<sup class="flag i" title="Applied extension of the credibility chapter, not itself a chapter">I</sup></td><td>GBM with claims-free-duration feature</td><td class="why">Experience-based renewal adjustment in fleet underwriting — an underwriting decision, not a claims one.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="cat-block">
+      <div class="cat-head"><h3 class="cat-title">Risk classification</h3><span class="cat-count">1 model</span></div>
+      <div class="table-wrap"><table class="tax">
+        <tr><th>Model</th><th>Classical method (Loss Data Analytics)</th><th>Modern GLM/GBM</th><th>Why underwriting</th></tr>
+        <tr><td class="model-name">Rating-factor model</td><td>Multiplicative GLM rating factors<sup class="flag i" title="Inferred: typical risk-classification chapter, title not verified">I</sup></td><td>GBM feature importance / SHAP validating GLM factors via double-lift chart</td><td class="why">Segmenting the book into homogeneous risk classes for pricing and appetite is foundational underwriting work.</td></tr>
+      </table></div>
+    </div>
+
+    <p class="legend"><span class="flag v">V</span> classical technique tied to a verified Loss Data Analytics chapter title &nbsp;&nbsp; <span class="flag i">I</span> inferred or applied extension — flagged rather than presented as a confirmed citation</p>
+
+    <div class="excluded-note"><strong>Deliberately excluded:</strong> claims triage, NLP/fraud detection, and telematics/UBI behavioural scoring. These sit in claims-handling or personal-lines behavioural quadrants, not commercial underwriting pricing/portfolio work — leaving them out is a scope decision, not an oversight.</div>
+  </section>
+
+  <section class="block" id="milestones">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Milestone sequence</h2></div>
+    <p class="sec-dek">Ordered on genuine statistical dependency, not just convenience — each milestone needs an earlier one's output, never a later one. Milestone 0 is built once; everything after repeats the same seven-stage lifecycle (Section 03).</p>
+
+    <div class="milestones">
+      <div class="milestone foundation">
+        <div class="m-rail"><div class="m-dot">0</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Bronze / silver foundation</span><span class="m-tag foundation">Foundation — once</span></div>
+          <div class="m-models">Land the Spanish motor dataset into a bronze catalog; run the existing underwriting-assessor script to produce silver. Stand up Unity Catalog schema conventions and the shared MLflow experiment scaffolding every later milestone reuses.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">1</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Frequency–severity loss cost <span class="mono" style="font-size:12px;color:var(--muted);font-weight:400;">(flagship)</span></span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Frequency model · Severity model · Pure premium / loss cost model</div>
+          <div class="m-dep">Needs only <span class="mono">M0</span>. Runs frequency×severity <em>and</em> Tweedie pure-premium side by side — Olu's own flagship example. Deliberately first, so the Free Edition serving risk (Section 05) surfaces immediately rather than at the end.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">2</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Tail / large-loss severity</span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Large-loss / tail severity model (EVT / GPD)</div>
+          <div class="m-dep">Needs <span class="mono">M1</span>'s severity model as the "body" distribution to splice a generalized-Pareto tail onto — classic body-and-tail sequencing.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">3</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Risk classification</span><span class="m-tag optional">If time allows</span></div>
+          <div class="m-models">Rating-factor model</div>
+          <div class="m-dep">Needs <span class="mono">M1</span>'s GLM rating structure to critique via GBM lift and double-lift charts — a refinement pass on a working model, not a blocking prerequisite.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">4</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Experience rating / credibility</span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Bühlmann–Straub credibility · Bonus-malus adjustment</div>
+          <div class="m-dep">Needs <span class="mono">M1</span>'s class-wide loss cost as the prior mean that credibility shrinks toward — required by construction.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">5</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Aggregate loss &amp; rate adequacy</span><span class="m-tag optional">If time allows</span></div>
+          <div class="m-models">Aggregate loss / collective risk model · Rate adequacy / trend model</div>
+          <div class="m-dep">Needs <span class="mono">M1</span>'s frequency and severity distributions as inputs to the compound / simulated aggregate distribution.</div>
+        </div>
+      </div>
+
+      <div class="milestone critical">
+        <div class="m-rail"><div class="m-dot">6</div><div class="m-line"></div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Portfolio concentration &amp; optimisation <span class="mono" style="font-size:12px;color:var(--muted);font-weight:400;">(capstone)</span></span><span class="m-tag critical">Critical path</span></div>
+          <div class="m-models">Portfolio concentration model · Portfolio optimisation model</div>
+          <div class="m-dep">Needs <span class="mono">M5</span>'s aggregate risk distribution as the input to optimise against. The Pillar-3 gap, and the most strategic, lead-level milestone.</div>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="m-rail"><div class="m-dot">7</div></div>
+        <div class="m-card">
+          <div class="m-top"><span class="m-title">Reserving</span><span class="m-tag conditional">Conditional</span></div>
+          <div class="m-models">Claims reserving · Stochastic reserving</div>
+          <div class="m-dep">Independent of the pricing chain, but only viable if the dataset actually contains multi-period claims-development data — unknown until Olu inspects the schema.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="lifecycle">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">The lifecycle every milestone repeats</h2></div>
+    <p class="sec-dek">Seven stages, identical for M1 through M7. Stages 5 and 6 are where the Hastings Direct gap gets closed, every single time.</p>
+
+    <div class="stages">
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Actuarial baseline</div><div class="stage-body">Fit the classical Loss Data Analytics technique in a Databricks notebook against the silver layer. Test distributional assumptions explicitly — e.g. an overdispersion test to choose Poisson vs. negative binomial, or AIC/QQ plots to choose gamma vs. lognormal severity.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">GLM/GBM challenger</div><div class="stage-body">Same target and features, gradient boosting or a regularised GLM. Match the GBM objective to the actuarial distribution family where possible — Poisson, gamma, Tweedie — the alignment itself is the differentiator between an actuarially-literate GBM and a naive one.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">MLflow tracking</div><div class="stage-body">Log distribution family, link function, and hyperparameters as params. Log Poisson/gamma deviance, normalised Gini, calibration-by-decile, and double-lift vs. baseline as metrics — not just RMSE. Log lift charts, residual diagnostics, and SHAP or coefficient tables as artifacts.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Registration</div><div class="stage-body">Register champion and challenger under a fixed <span class="mono">catalog.schema.model_name</span> convention in Unity Catalog, using alias-based promotion (<span class="mono">@champion</span> / <span class="mono">@challenger</span>) rather than legacy stage names.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Deploy as an endpoint <span class="gap-pill">closes Hastings Direct</span></div><div class="stage-body">Deploy the champion as a Databricks Model Serving CPU real-time endpoint. Free Edition's serving reliability for custom models is unconfirmed — test this in M1, and fall back to a scheduled batch-scoring job if it fails. Naming the fallback honestly is itself a deployment story worth telling.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Monitor <span class="gap-pill">closes Hastings Direct</span></div><div class="stage-body">A scheduled job scores a fresh slice weekly, computes feature and prediction drift (PSI or mean/std) against the training-time baseline logged in MLflow, and logs the result as a new tagged run — a visible time series of model health.</div></div>
+      </div>
+      <div class="stage">
+        <div class="stage-num"></div>
+        <div><div class="stage-title">Handwritten debrief</div><div class="stage-body">Answer by hand, for interview use: why this distributional choice, and what diagnostic backs it; where the GBM beat the GLM and where the GLM's interpretability mattered more; what broke in deployment/monitoring on Free Edition and what would differ on paid infrastructure; what the next refinement would be with two more weeks.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gaps">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">What this closes</h2></div>
+    <p class="sec-dek">Both interviewer quotes, mapped to the specific milestones that answer them.</p>
+    <div class="gap-cards">
+      <div class="gap-card">
+        <h4>Deployment &amp; monitoring depth</h4>
+        <div class="co">Hastings Direct · Jan 2026</div>
+        <blockquote>"Modelling and deployment depth needed more demonstration, end-to-end serving and monitoring named as the gap."</blockquote>
+        <div class="closes">Closed by</div>
+        <ul>
+          <li><strong>Every milestone, stages 5–6</strong> — a live (or honestly-documented-fallback) endpoint plus a running drift-monitoring job, repeated seven times.</li>
+          <li><strong>M1</strong> — the first full serving + monitoring pass, earliest and most scrutinised.</li>
+          <li><strong>M6</strong> — the capstone's serving/monitoring story, tied to portfolio optimisation.</li>
+        </ul>
+      </div>
+      <div class="gap-card">
+        <h4>Statistics depth</h4>
+        <div class="co">Pacific Life Re · final stage, Jul 2026</div>
+        <blockquote>"Communication, AWS/pipeline and deployment work praised. Rejected specifically on data science/statistics depth."</blockquote>
+        <div class="closes">Closed by</div>
+        <ul>
+          <li><strong>M1</strong> — Poisson/gamma GLM theory, deviance, Gini: the actuarial fundamentals.</li>
+          <li><strong>M2</strong> — extreme value theory tail modelling, genuinely advanced, rarely touched by generalist DS candidates.</li>
+          <li><strong>M4</strong> — Bühlmann–Straub credibility theory: the single strongest differentiator from a generic ML candidate.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="risks">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Risks worth naming</h2></div>
+    <p class="sec-dek">Stated plainly rather than glossed over — this is a reference plan to push back on, not a locked spec.</p>
+    <div class="risks">
+      <div class="risk"><div class="risk-head">Free Edition serving reliability is unconfirmed</div><div class="risk-body">Community reports show "container creation failed" on custom MLflow endpoints on Free Edition. <span class="fix">Test in M1, not the capstone, and treat the batch-scoring fallback as real planned work.</span></div></div>
+      <div class="risk"><div class="risk-head">Dataset schema is unknown</div><div class="risk-body">The Spanish motor dataset hasn't been inspected in this session. <span class="fix">Silver-layer goals stay general — no invented column names — until Olu audits the real schema.</span></div></div>
+      <div class="risk"><div class="risk-head">Existing repo structure is unknown</div><div class="risk-body">Whether the underwriting-assessor repo will cleanly take a milestone structure (issues, branches, tags) can't be assessed sight unseen. <span class="fix">A short structural audit before M0 kickoff.</span></div></div>
+      <div class="risk"><div class="risk-head">Time budget is unknown</div><div class="risk-body">Eight milestones × a seven-stage lifecycle is substantial. <span class="fix">M0, M1, M2, M4, M6 are the critical path — the two feedback gaps plus the Pillar-3 gap, covered even if nothing else gets built.</span></div></div>
+      <div class="risk"><div class="risk-head">Free Edition job ceilings</div><div class="risk-body">Max 5 concurrent job tasks and one active pipeline per pipeline type. <span class="fix">Stagger each milestone's weekly monitoring job to a different time slot.</span></div></div>
+      <div class="risk"><div class="risk-head">2X-Small SQL warehouse may be slow for simulation</div><div class="risk-body">Monte Carlo aggregate-loss simulation (M5/M6) is compute-heavy. <span class="fix">Run simulation in a notebook via pandas/numpy rather than the SQL warehouse, or subsample.</span></div></div>
+      <div class="risk"><div class="risk-head">Credibility theory has no clean GBM analogue</div><div class="risk-body">Plain GBM doesn't do shrinkage natively, unlike Bühlmann–Straub. <span class="fix">Use a hierarchical GLMM as the fairer "modern" comparator in M4, and make articulating that distinction part of the debrief itself.</span></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Grounded in Loss Data Analytics, 2nd ed. (Frees et al., openacttexts.github.io) and Databricks Free Edition limitations (docs.databricks.com), verified live. Written 26 Aug 2026.</span>
+  </footer>
+
+</div>
