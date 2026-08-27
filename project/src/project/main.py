@@ -1,9 +1,11 @@
 import argparse
-from databricks.sdk.runtime import spark
-from project import taxis
 
 
 def main():
+    # Imported lazily: `databricks.sdk.runtime` resolves auth at import time,
+    # which only succeeds when actually running on a Databricks cluster/job.
+    from databricks.sdk.runtime import spark
+
     # Process command-line arguments
     parser = argparse.ArgumentParser(
         description="Databricks job with catalog and schema parameters",
@@ -15,9 +17,6 @@ def main():
     # Set the default catalog and schema
     spark.sql(f"USE CATALOG `{args.catalog}`")
     spark.sql(f"USE SCHEMA `{args.schema}`")
-
-    # Example: just find all taxis from a sample catalog
-    taxis.find_all_taxis().show(5)
 
 
 if __name__ == "__main__":
