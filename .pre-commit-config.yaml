@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^project/
+      - id: ruff-format
+        files: ^project/
+
+  - repo: local
+    hooks:
+      - id: pytest-smoke
+        name: pytest smoke test
+        entry: bash -c 'cd project && uv run pytest tests/test_smoke.py'
+        language: system
+        pass_filenames: false
+        files: ^project/
