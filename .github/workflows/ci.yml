@@ -12,20 +12,29 @@ defaults:
 
 jobs:
   check:
-    name: Lint, test, validate bundle
+    name: Lint and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Python deps
-        run: pip install ruff pytest
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Install deps
+        run: uv sync
 
       - name: Lint
-        run: ruff check .
+        run: uv run ruff check .
 
       - name: Test
-        run: pytest
+        run: uv run pytest
 
+  validate-bundle:
+    name: Validate Databricks bundle
+    needs: check
+    runs-on: ubuntu-latest
+    if: vars.DATABRICKS_HOST != ''
+    steps:
+      - uses: actions/checkout@v4
       - uses: databricks/setup-cli@main
 
       - name: Validate bundle
@@ -37,7 +46,7 @@ jobs:
   deploy:
     name: Deploy to Databricks
     needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DATABRICKS_HOST != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

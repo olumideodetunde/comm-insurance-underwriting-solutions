@@ -14,7 +14,9 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest",
+    "pytest-cov",
     "ruff",
+    "pre-commit",
     "databricks-dlt",
     "databricks-connect>=15.4,<15.5",
     "ipykernel",
@@ -29,3 +31,13 @@ build-backend = "hatchling.build"
 
 [tool.ruff]
 line-length = 120
+# `spark` and `dbutils` are injected into scope at runtime by the Databricks
+# pipeline/notebook environment rather than imported.
+builtins = ["spark", "dbutils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=project --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/project"]

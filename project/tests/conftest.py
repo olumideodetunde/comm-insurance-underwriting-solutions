@@ -1,37 +1,38 @@
-"""This file configures pytest, initializes Databricks Connect, and provides fixtures for Spark and loading test data."""
+"""This file provides opt-in fixtures for tests that need a Databricks Spark session or fixture data.
 
-import os, sys, pathlib
-from contextlib import contextmanager
+Nothing here connects to Databricks eagerly: the `spark` fixture only reaches out when a test
+actually requests it, so plain local tests (e.g. tests/test_smoke.py) run without any Databricks
+credentials or cluster access.
+"""
 
+import csv
+import json
+import os
+import pathlib
+import sys
 
-try:
-    from databricks.connect import DatabricksSession
-    from databricks.sdk import WorkspaceClient
-    from pyspark.sql import SparkSession
-    import pytest
-    import json
-    import csv
-    import os
-except ImportError:
-    raise ImportError(
-        "Test dependencies not found.\n\nRun tests using 'uv run pytest'. See http://docs.astral.sh/uv to learn more about uv."
-    )
+import pytest
 
 
 @pytest.fixture()
-def spark() -> SparkSession:
-    """Provide a SparkSession fixture for tests.
+def spark():
+    """Provide a SparkSession fixture for tests that need one.
 
     Minimal example:
         def test_uses_spark(spark):
             df = spark.createDataFrame([(1,)], ["x"])
             assert df.count() == 1
     """
+    from databricks.connect import DatabricksSession
+
+    _enable_fallback_compute()
+    if hasattr(DatabricksSession.builder, "validateSession"):
+        return DatabricksSession.builder.validateSession().getOrCreate()
     return DatabricksSession.builder.getOrCreate()
 
 
 @pytest.fixture()
-def load_fixture(spark: SparkSession):
+def load_fixture(spark):
     """Provide a callable to load JSON or CSV from fixtures/ directory.
 
     Example usage:
@@ -58,6 +59,8 @@ def load_fixture(spark: SparkSession):
 
 def _enable_fallback_compute():
     """Enable serverless compute if no compute is specified."""
+    from databricks.sdk import WorkspaceClient
+
     conf = WorkspaceClient().config
     if conf.serverless_compute_id or conf.cluster_id or os.environ.get("SPARK_REMOTE"):
         return
@@ -67,28 +70,3 @@ def _enable_fallback_compute():
     print(f"  see {url} for manual configuration", file=sys.stdout)
 
     os.environ["DATABRICKS_SERVERLESS_COMPUTE_ID"] = "auto"
-
-
-@contextmanager
-def _allow_stderr_output(config: pytest.Config):
-    """Temporarily disable pytest output capture."""
-    capman = config.pluginmanager.get_plugin("capturemanager")
-    if capman:
-        with capman.global_and_fixture_disabled():
-            yield
-    else:
-        yield
-
-
-def pytest_configure(config: pytest.Config):
-    """Configure pytest session."""
-    with _allow_stderr_output(config):
-        _enable_fallback_compute()
-
-        # Initialize Spark session eagerly, so it is available even when
-        # SparkSession.builder.getOrCreate() is used. For DB Connect 15+,
-        # we validate version compatibility with the remote cluster.
-        if hasattr(DatabricksSession.builder, "validateSession"):
-            DatabricksSession.builder.validateSession().getOrCreate()
-        else:
-            DatabricksSession.builder.getOrCreate()
