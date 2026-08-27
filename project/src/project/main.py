@@ -1,9 +1,11 @@
 import argparse
 
-from databricks.sdk.runtime import spark
-
 
 def main():
+    # Imported lazily: `databricks.sdk.runtime` resolves auth at import time,
+    # which only succeeds when actually running on a Databricks cluster/job.
+    from databricks.sdk.runtime import spark
+
     # Process command-line arguments
     parser = argparse.ArgumentParser(
         description="Databricks job with catalog and schema parameters",
