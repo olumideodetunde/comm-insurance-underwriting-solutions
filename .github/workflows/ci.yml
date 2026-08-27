@@ -35,6 +35,7 @@ jobs:
     if: vars.DATABRICKS_HOST != ''
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
       - uses: databricks/setup-cli@main
 
       - name: Validate bundle
@@ -50,6 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
       - uses: databricks/setup-cli@main
 
       - name: Deploy bundle
