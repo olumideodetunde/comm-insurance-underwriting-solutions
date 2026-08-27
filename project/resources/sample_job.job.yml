@@ -22,12 +22,7 @@ resources:
           default: ${var.schema}
 
       tasks:
-        - task_key: notebook_task
-          notebook_task:
-            notebook_path: ../src/sample_notebook.ipynb
         - task_key: python_wheel_task
-          depends_on:
-            - task_key: notebook_task
           python_wheel_task:
             package_name: project
             entry_point: main
@@ -38,8 +33,6 @@ resources:
               - "${var.schema}"
           environment_key: default
         - task_key: refresh_pipeline
-          depends_on:
-            - task_key: notebook_task
           pipeline_task:
             pipeline_id: ${resources.pipelines.project_etl.id}
 
