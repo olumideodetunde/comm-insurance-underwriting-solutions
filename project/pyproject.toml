@@ -11,6 +11,7 @@ dependencies = [
     # LIMITATION: for pipelines, dependencies are cached during development;
     # add dependencies to the 'environment' section of your pipeline.yml file instead
     "pandas>=2.3.3",
+    "pympler>=1.1",
 ]
 
 [dependency-groups]
